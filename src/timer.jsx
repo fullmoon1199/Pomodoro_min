@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import './timer.css';
 
 /*
 timeLeft={timeLeft}
@@ -6,7 +7,7 @@ setTimeLeft={setTimeLeft}
 isRunning={timerRun}
 onTimerEnd={handleTimerEnd}
 */
-function Timer({ timeLeft, setTimeLeft, isRunning, onTimerEnd }) {
+function Timer({ timeLeft, setTimeLeft, isRunning, onTimerEnd}) {
   useEffect(() => {
     if (!isRunning) return;
 
@@ -19,7 +20,7 @@ function Timer({ timeLeft, setTimeLeft, isRunning, onTimerEnd }) {
           return 0;
         }
         return prev - 1;
-      });
+      })
     }, 1000);
 
     return () => clearInterval(interval);
@@ -33,14 +34,14 @@ function Timer({ timeLeft, setTimeLeft, isRunning, onTimerEnd }) {
     return (
       <div>
         {String(minutes).padStart(2, "0") +
-          ":" +
+          " : " +
           String(seconds).padStart(2, "0")}
       </div>
     );
   };
 
   return (
-    <div>
+    <div className={"clock"}>
       <h2>{formatTime(timeLeft)}</h2>
     </div>
   );

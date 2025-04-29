@@ -1,0 +1,25 @@
+/* timer.css */
+
+/* 타이머 전체 컨테이너 */
+.clock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border: 2px solid #cccccc;
+    border-radius: 10px;
+    width: 400px;
+    height: 140px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 타이머 텍스트 */
+  .clock h2 {
+    font-size: 5rem;
+    font-weight: bold;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }

@@ -1,0 +1,146 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+body.working {
+    background-image: url("./assets/images/working.png");
+  }
+  
+  body.resting {
+    background-image: url("./assets/images/rest.png");
+    background-size: 25%;
+  }
+
+  div.AppDiv {
+    text-align: center;
+    background-color: #c1f7cd;
+    padding: 120px 340px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative; 
+  }
+  h1.AppDivH1 {
+      font-size: 2rem;
+      color: #22d868;
+      margin-bottom: 20px;
+      position: absolute; /* 부모 컨테이너를 기준으로 위치 설정 */
+      top: 20px; /* 위쪽에서 10px 떨어짐 */
+      left: 30px; /* 왼쪽에서 10px 떨어짐 */
+      margin: 0; /* 기본 여백 제거 */
+    }
+
+  .settingBtn {
+    background-color: transparent; /*배경 투명하게*/
+    width: 30px; /* 버튼의 너비 */
+    height: 30px; /* 버튼의 높이 */
+    background-image: url("./assets/images/setting.png"); /* 버튼 배경 이미지 */
+    background-size: cover; /* 이미지를 버튼 크기에 맞게 조정 */
+    background-position: center; /* 이미지를 중앙에 배치 */
+    background-repeat: no-repeat; /* 이미지 반복 방지 */
+    border: none; /* 버튼 테두리 제거 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+    transition: transform 0.2s ease; /* 클릭 시 애니메이션 효과 */
+    color: transparent; /*텍스트 투명하게*/
+    border-radius: 20%; /*가장자리 둥글게*/
+    position: absolute; /* 부모 컨테이너를 기준으로 위치 설정 */
+    top: 25px; /* 위쪽에서 10px 떨어짐 */
+    right: 30px; /* 왼쪽에서 10px 떨어짐 */
+    margin: 0; /* 기본 여백 제거 */
+  }
+  h2.Status {
+    font-size: 3rem;
+    color: #667f91;
+    margin-bottom: 20px;
+  }
+  
+  .startBtn {
+    background-color: transparent; /*배경 투명하게*/
+    width: 50px; /* 버튼의 너비 */
+    height: 50px; /* 버튼의 높이 */
+    background-image: url("./assets/images/start.png"); /* 버튼 배경 이미지 */
+    background-size: cover; /* 이미지를 버튼 크기에 맞게 조정 */
+    background-position: center; /* 이미지를 중앙에 배치 */
+    background-repeat: no-repeat; /* 이미지 반복 방지 */
+    border: none; /* 버튼 테두리 제거 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+    transition: transform 0.2s ease; /* 클릭 시 애니메이션 효과 */
+    color: transparent; /*텍스트 투명하게*/
+    border-radius: 20%; /*가장자리 둥글게*/
+    margin-right: 30px;
+  }
+  .stopBtn {
+    background-color: transparent; /*배경 투명하게*/
+    width: 50px; /* 버튼의 너비 */
+    height: 50px; /* 버튼의 높이 */
+    background-image: url("./assets/images/stop.png"); /* 버튼 배경 이미지 */
+    background-size: cover; /* 이미지를 버튼 크기에 맞게 조정 */
+    background-position: center; /* 이미지를 중앙에 배치 */
+    background-repeat: no-repeat; /* 이미지 반복 방지 */
+    border: none; /* 버튼 테두리 제거 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+    transition: transform 0.2s ease; /* 클릭 시 애니메이션 효과 */
+    color: transparent; /*텍스트 투명하게*/
+    border-radius: 20%; /*가장자리 둥글게*/
+    margin-right: 30px;
+  }
+  .resetBtn {
+    background-color: transparent;
+    width: 50px; /* 버튼의 너비 */
+    height: 50px; /* 버튼의 높이 */
+    background-image: url("./assets/images/refresh.png"); /* 버튼 배경 이미지 */
+    background-size: cover; /* 이미지를 버튼 크기에 맞게 조정 */
+    background-position: center; /* 이미지를 중앙에 배치 */
+    background-repeat: no-repeat; /* 이미지 반복 방지 */
+    border: none; /* 버튼 테두리 제거 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+    transition: transform 0.2s ease; /* 클릭 시 애니메이션 효과 */
+    color: transparent;
+    border-radius: 20%;
+    margin-left: 30px;
+  }
+  .startBtn:hover {
+    transform: scale(1.1); /* 호버 시 버튼 확대 */
+  }
+  
+  .startBtn:active {
+    transform: scale(0.9); /* 클릭 시 버튼 축소 */
+  }
+  .resetBtn:hover {
+    transform: scale(1.1); /* 호버 시 버튼 확대 */
+  }
+  
+  .resetBtn:active {
+    transform: scale(0.9); /* 클릭 시 버튼 축소 */
+  }
+  .settingBtn:hover {
+    transform: scale(1.1); /* 호버 시 버튼 확대 */
+  }
+  .settingBtn:active {
+    transform: scale(0.9); /* 클릭 시 버튼 축소 */
+  }
+
+  /* 프로그래스바 컨테이너 */
+.progressBarContainer {
+  width: 100%; /* 전체 너비 */
+  height: 10px; /* 높이 */
+  background-color: #ffffff; /* 배경색 */
+  border-radius: 5px; /* 둥근 모서리 */
+  overflow: hidden; /* 둥근 모서리 밖의 내용 숨김 */
+  margin: 10px 0; /* 위아래 여백 */
+}
+
+/* 프로그래스바 */
+.progressBar {
+  height: 100%; /* 컨테이너 높이에 맞춤 */
+  background-color: #22d868; /* 진행 상태 색상 */
+  transition: width 0.3s ease; /* 부드러운 애니메이션 */
+}
