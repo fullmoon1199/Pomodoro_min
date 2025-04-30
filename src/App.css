@@ -20,13 +20,29 @@ body.working {
     background-size: 25%;
   }
 
-  div.AppDiv {
+  div.Run {
+    text-align: center;
+    background-color: #cadafc;
+    padding: 120px 340px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  div.Working {
+    text-align: center;
+    background-color: #ffe4f7;
+    padding: 120px 340px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  div.Rest{
     text-align: center;
     background-color: #c1f7cd;
     padding: 120px 340px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative; 
+    position: relative;
   }
   h1.AppDivH1 {
       font-size: 2rem;
@@ -52,7 +68,7 @@ body.working {
     color: transparent; /*텍스트 투명하게*/
     border-radius: 20%; /*가장자리 둥글게*/
     position: absolute; /* 부모 컨테이너를 기준으로 위치 설정 */
-    top: 25px; /* 위쪽에서 10px 떨어짐 */
+    top: 20px; /* 위쪽에서 10px 떨어짐 */
     right: 30px; /* 왼쪽에서 10px 떨어짐 */
     margin: 0; /* 기본 여백 제거 */
   }
@@ -144,3 +160,4 @@ body.working {
   background-color: #22d868; /* 진행 상태 색상 */
   transition: width 0.3s ease; /* 부드러운 애니메이션 */
 }
+
