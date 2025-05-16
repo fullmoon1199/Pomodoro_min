@@ -4,6 +4,7 @@ import Layout from "./components/common/Layout";
 import Pomodoro from "./components/pomodoro/pomodoro";
 import Movie from "./components/movies/movie";
 import MovieInfo from "./components/movies/movieInfo";
+import Person from "./components/person/person"
 import "./tailwind.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
               <Route path="/" element={<Pomodoro />} />
               <Route path="/movie" element={<Movie />} />
               <Route path="/movie/:idValue" element={<MovieInfo />} />
+              <Route path="/person" element={<Person />} />
             </Route>
           </Routes>
         </div>

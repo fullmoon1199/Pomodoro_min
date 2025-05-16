@@ -5,6 +5,7 @@ const SideBar = () => {
   const menuItems = [
     { name: "Pomodoro", path: "/" },
     { name: "Movies", path: "/movie" },
+    { name: "Person", path: "/person" }
   ];
 
   return (
