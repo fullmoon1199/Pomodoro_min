@@ -1,46 +1,93 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import Detail from "./detail";
+import Loading from "../common/loading";
 
-function Detail() {
-  const { idValue } = useParams(); // URL에서 idValue를 가져옴
-  const [movieInfo, setMovieInfo] = useState(null); // 영화 정보를 저장할 상태
+function Movie() {
+  const [loading, setLoading] = useState(true);
+  const [movies, setMovies] = useState([]);
+  const [keyword, setKeyword] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
+
+  const getMovies = async () => {
+    const json = await (
+      await fetch("https://yts.mx/api/v2/list_movies.json?")
+    ).json();
+    setMovies(json.data.movies);
+    setLoading(false);
+    console.log(json);
+  };
 
   useEffect(() => {
-    const getMovie = async () => {
-      const response = await fetch(
-        `https://yts.mx/api/v2/movie_details.json?movie_id=${idValue}`
-      );
-      const json = await response.json();
-      console.log("API Response:", json);
+    getMovies();
+  }, []);
 
-      if (json && json.data && json.data.movie) {
-        setMovieInfo(json.data.movie);
-        console.log("movieInfo: ", json.data.movie);
-      } else {
-        console.error("Invalid API response:", json);
-      }
-    };
-    getMovie();
-  }, [idValue]);
+  const handleSearch = (e) => {
+    e.preventDefault();
+  };
+
+  const filteredMovies = movies.filter((movie) => {
+    const matchTitle = movie.title
+      .toLowerCase()
+      .includes(keyword.toLowerCase());
+    const matchGenre =
+      selectedGenre === "" || movie.genres.includes(selectedGenre);
+    return matchTitle && matchGenre;
+  });
 
   return (
-    <div>
-      {movieInfo ? (
-        <div>
-          <h1>{movieInfo.title}</h1>
-          <img src={movieInfo.medium_cover_image} alt={movieInfo.title} />
-          <p>{movieInfo.description_full}</p>
-          <ul>
-            {movieInfo.genres.map((genre) => (
-              <li key={genre}>{genre}</li>
-            ))}
-          </ul>
-        </div>
+    <div className="pt-[50px] pl-[30px]">
+      {loading ? (
+        <Loading />
       ) : (
-        <h1>Loading...</h1> // 데이터가 로드되지 않았을 때 표시
+        <div>
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="영화 제목 검색"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              className="text-white bg-gray-800 placeholder-gray-400 p-2 rounded mr-1"
+            />
+            <select
+              value={selectedGenre}
+              onChange={(e) => setSelectedGenre(e.target.value)}
+              className="text-white bg-gray-800 placeholder-gray-400 p-2 rounded"
+            >
+              <option value="">ALL</option>
+              {[...new Set(movies.flatMap((item) => item.genres))].map(
+                (genre) => (
+                  <option key={genre} value={genre}>
+                    {genre}
+                  </option>
+                )
+              )}
+            </select>
+          </form>
+          <br />
+          <h1 className="text-3xl font-bold italic text-gray-300">
+            Result: ({filteredMovies.length})
+          </h1>
+          <br />
+          <div className="flex flex-row flex-wrap gap-4">
+            {filteredMovies.length > 0 ? (
+              filteredMovies.map((item) => (
+                <Detail
+                  key={item.id}
+                  id={item.id}
+                  coverImg={item.medium_cover_image}
+                  title={item.title}
+                  summary={item.summary}
+                  genres={item.genres}
+                />
+              ))
+            ) : (
+              <p>검색 결과가 없습니다.</p>
+            )}
+          </div>
+        </div>
       )}
     </div>
   );
 }
 
-export default Detail;
+export default Movie;

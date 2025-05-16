@@ -1,19 +1,17 @@
 import { useState, useEffect } from "react";
 import Timer from "../timer/timer";
 import Setting from "../setting/setting";
-import "./pomodoro.css";
 import Pagination from "../pagination/pagination";
 
 function Pomodoro() {
-  const [isWork, setIsWork] = useState(true); // 일하는시간
-  const [timerRun, setTimerRun] = useState(false); // 타이머 상태
-  const [workDuration, setWorkDuration] = useState(25 * 60); // 일하는 시간 x초*60
-  const [restDuration, setRestDuration] = useState(5 * 60); // 쉬는 시간 y초*60
-  const [timeLeft, setTimeLeft] = useState(workDuration); // 남은 시간
-  const [progress, setProgress] = useState(workDuration); // 진행도
-  const [settingOpen, setSettingOpen] = useState(false); // 모달창 열려있는지
+  const [isWork, setIsWork] = useState(true);
+  const [timerRun, setTimerRun] = useState(false);
+  const [workDuration, setWorkDuration] = useState(25 * 60);
+  const [restDuration, setRestDuration] = useState(5 * 60);
+  const [timeLeft, setTimeLeft] = useState(workDuration);
+  const [progress, setProgress] = useState(workDuration);
+  const [settingOpen, setSettingOpen] = useState(false);
 
-  // 타이머 종료 시 work/rest 전환
   const handleTimerEnd = () => {
     if (isWork) {
       setIsWork(false);
@@ -24,24 +22,23 @@ function Pomodoro() {
     }
     setTimerRun(false);
   };
+
   const handleTimerReset = () => {
     setTimerRun(false);
     setTimeLeft(workDuration);
     setIsWork(true);
   };
-  // 나중에 쓸거
+
   useEffect(() => {
     setWorkDuration((prev) => prev);
     setRestDuration((prev) => prev);
   }, []);
 
-  // work/rest 상태 변경 시 랜더링
   useEffect(() => {
     setTimeLeft(isWork ? workDuration : restDuration);
   }, [isWork, workDuration, restDuration]);
 
   useEffect(() => {
-    // 작업 상태에 따라 body 클래스 변경
     document.body.className = isWork ? "working" : "resting";
   }, [isWork]);
 
@@ -54,8 +51,8 @@ function Pomodoro() {
   }, [timeLeft, workDuration, progress, restDuration, isWork]);
 
   return (
-    <div className={timerRun ? (isWork ? "Working" : "Rest") : "Run"}>
-      {settingOpen ? (
+    <div className={`min-h-screen flex flex-col items-center justify-center p-4 ${timerRun ? (isWork ? "bg-green-100" : "bg-blue-100") : "bg-gray-100"}`}>
+      {settingOpen && (
         <Setting
           workDuration={workDuration}
           restDuration={restDuration}
@@ -63,59 +60,75 @@ function Pomodoro() {
           setRestDuration={setRestDuration}
           onClose={() => setSettingOpen(false)}
         />
-      ) : null}
-      <h1 className={"AppDivH1"}>♣ Pomodoro</h1>
-      <div className="buttonGroup">
+      )}
+
+      <h1 className="text-3xl font-bold text-gray-800 mb-4">♣ Pomodoro</h1>
+
+      <div className="flex gap-4 mb-4">
         <button
-          className={"button settingBtn"}
+          className="px-4 py-2 bg-yellow-400 text-white rounded hover:bg-yellow-500"
           title="Setting"
-          onClick={() => setSettingOpen((settingOpen) => !settingOpen)}
-        ></button>
+          onClick={() => setSettingOpen((prev) => !prev)}
+        >
+          Setting
+        </button>
         <button
-          className={"button goToMovie"}
+          className="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
           title="Movie"
           onClick={() => (window.location.href = "/movie")}
         >
-          Movie Btn
+          Movie
         </button>
       </div>
-      <div>
-        <div className="progressBarContainer">
-          <div className="progressBar" style={{ width: `${progress}%` }}></div>
+
+      <div className="w-full max-w-md mb-4">
+        <div className="w-full h-3 bg-gray-300 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-green-500 transition-all duration-300"
+            style={{ width: `${progress}%` }}
+          ></div>
         </div>
-        <h2 className={"Status"}>{isWork ? "Work Hard!!" : "Rest~"}</h2>
-        <Timer
-          timeLeft={timeLeft}
+      </div>
+
+      <h2 className="text-xl font-medium text-gray-700 mb-4">
+        {isWork ? "Work Hard!!" : "Rest~"}
+      </h2>
+
+      <Timer
+        timeLeft={timeLeft}
+        setTimeLeft={setTimeLeft}
+        isRunning={timerRun}
+        onTimerEnd={handleTimerEnd}
+        progressBar={setProgress}
+      />
+
+      <div className="flex gap-4 mt-6">
+        <button
+          title={timerRun ? "stop" : "start"}
+          className={`px-6 py-2 rounded text-white font-semibold transition ${
+            timerRun ? "bg-red-500 hover:bg-red-600" : "bg-green-500 hover:bg-green-600"
+          }`}
+          onClick={() => setTimerRun((prev) => !prev)}
+        >
+          {timerRun ? "Pause" : "Start"}
+        </button>
+        <button
+          title="reset"
+          className="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+          onClick={handleTimerReset}
+        >
+          Reset
+        </button>
+      </div>
+
+      <div className="mt-6">
+        <Pagination
+          setIsWork={setIsWork}
           setTimeLeft={setTimeLeft}
-          isRunning={timerRun}
-          onTimerEnd={handleTimerEnd}
-          progressBar={setProgress}
+          workDuration={workDuration}
+          restDuration={restDuration}
+          setTimerRun={setTimerRun}
         />
-        <div className="btnGroup">
-          <button
-            title={timerRun ? "stop" : "start"}
-            className={`startBtn ${timerRun ? "stopBtn" : "startBtn"}`}
-            onClick={() => setTimerRun((timerRun) => !timerRun)}
-          >
-            {timerRun ? "Pause" : "Start"}
-          </button>
-          <button
-            title={"reset"}
-            className="resetBtn"
-            onClick={() => handleTimerReset()}
-          >
-            reset
-          </button>
-        </div>
-        <div className="pagination">
-          <Pagination
-            setIsWork={setIsWork}
-            setTimeLeft={setTimeLeft}
-            workDuration={workDuration}
-            restDuration={restDuration}
-            setTimerRun={setTimerRun}
-          />
-        </div>
       </div>
     </div>
   );

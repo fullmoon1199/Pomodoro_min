@@ -13,7 +13,6 @@ function Timer({ timeLeft, setTimeLeft, isRunning, onTimerEnd}) {
 
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
-        // 시간 끝나고 상태 전환 및 초기화
         if (prev < 1) {
           clearInterval(interval);
           onTimerEnd();
